@@ -142,8 +142,6 @@ body {
 }
 
 
-
-/* Form section */
 .form-section {
 
     margin-left:-15rem;
@@ -151,7 +149,7 @@ body {
     max-width: 250px;
 }
 
-/* Custom form styles */
+
 .custom-form {
     background-color: rgba(0, 0, 0, 0.4);
     padding: 20px;
@@ -159,7 +157,6 @@ body {
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Form input styles */
 .custom-input {
     border: none;
     background-color: #e0e0e0; /* Light gray background for inputs */
@@ -177,7 +174,6 @@ body {
     outline: none;
 }
 
-/* Custom button styles */
 .custom-btn {
     background-color: #088bff; /* Primary blue color */
     border: none;
@@ -194,7 +190,6 @@ body {
     background-color: #0056b3; /* Darker blue on hover */
 }
 
-/* Add some spacing to the row */
 .row {
     margin-top: 20px;
 }

@@ -44,25 +44,22 @@ def extract_hourly_forecast(forecast_data):
 
     if 'list' in forecast_data:
         for forecast in forecast_data['list']:
-            # Parse the forecast time and make it timezone-aware
             forecast_time = datetime.datetime.strptime(forecast['dt_txt'], "%Y-%m-%d %H:%M:%S")
             forecast_time = forecast_time.replace(tzinfo=timezone.utc)  # Set as UTC
 
-            # Now you can compare timezone-aware datetimes
             if forecast_time <= current_time + datetime.timedelta(hours=24):
                 hourly_forecast.append({
                     'time': forecast_time.strftime("%H:%M"),
-                    'temp': round(forecast['main']['temp'], 1),  # Convert from Kelvin to Celsius
+                    'temp': round(forecast['main']['temp'], 1),
                     'weather': forecast['weather'][0]['description'],
                     'icon': forecast['weather'][0]['icon'],
                     'wind_speed': forecast['wind']['speed'],
-                    'gust': forecast['wind'].get('gust', 'N/A'),  # Handle missing gust data
+                    'gust': forecast['wind'].get('gust', 'N/A'),
                 })
 
     return hourly_forecast[:5]
 
 
-# Function to extract daily forecast (midday forecasts for 5 days)
 def extract_daily_forecast(forecast_data):
     daily_forecast = {}
 
@@ -71,9 +68,9 @@ def extract_daily_forecast(forecast_data):
             forecast_time = datetime.datetime.strptime(forecast['dt_txt'], "%Y-%m-%d %H:%M:%S")
             date_str = forecast_time.date()
 
-            # Only consider forecasts for the next 5 days
+
             if len(daily_forecast) >= 5:
-                break  # Stop if we already have 5 days of forecasts
+                break
 
             if date_str not in daily_forecast:
                 daily_forecast[date_str] = {
@@ -86,13 +83,11 @@ def extract_daily_forecast(forecast_data):
                     'gust': forecast['wind'].get('gust', 'N/A'),
                 }
             else:
-                # Update the max/min temperatures
                 daily_forecast[date_str]['temp_max'] = max(daily_forecast[date_str]['temp_max'],
                                                            round(forecast['main']['temp_max'], 1))
                 daily_forecast[date_str]['temp_min'] = min(daily_forecast[date_str]['temp_min'],
                                                            round(forecast['main']['temp_min'], 1))
 
-    # Convert daily_forecast to a list for rendering
     return [{'date': date, **details} for date, details in daily_forecast.items() if
             date <= datetime.datetime.now().date() + datetime.timedelta(days=5)]
 
