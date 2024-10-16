@@ -9,6 +9,7 @@ app = Flask(__name__)
 API_KEY = 'your_api_key'
 API_URL = 'http://api.openweathermap.org/data/2.5/weather?'
 FORECAST_URL = 'http://api.openweathermap.org/data/2.5/forecast?'
+
 def get_weather_by_city(city):
     params = {
         'appid': API_KEY,
@@ -39,13 +40,13 @@ def get_forecast(city):
 
 
 def extract_hourly_forecast(forecast_data):
-    current_time = datetime.datetime.now(timezone.utc)  # Make current_time timezone-aware
+    current_time = datetime.datetime.now(timezone.utc)
     hourly_forecast = []
 
     if 'list' in forecast_data:
         for forecast in forecast_data['list']:
             forecast_time = datetime.datetime.strptime(forecast['dt_txt'], "%Y-%m-%d %H:%M:%S")
-            forecast_time = forecast_time.replace(tzinfo=timezone.utc)  # Set as UTC
+            forecast_time = forecast_time.replace(tzinfo=timezone.utc)
 
             if forecast_time <= current_time + datetime.timedelta(hours=24):
                 hourly_forecast.append({
@@ -67,7 +68,6 @@ def extract_daily_forecast(forecast_data):
         for forecast in forecast_data['list']:
             forecast_time = datetime.datetime.strptime(forecast['dt_txt'], "%Y-%m-%d %H:%M:%S")
             date_str = forecast_time.date()
-
 
             if len(daily_forecast) >= 5:
                 break
