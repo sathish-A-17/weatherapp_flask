@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+ <div class="form-section">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <form method="POST" class="custom-form">
+                        <input type="text" name="city" class="form-control custom-input" placeholder="Enter city name" required>
+                        <input type="date" name="date" class="form-control custom-input" >
+                        <input type="time" name="time" class="form-control custom-input" >
+                        <button class="btn custom-btn" type="submit">Get Weather</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    <div class="weather-dashboard">
+        <div class="main-weather-info">
+            <h4 class="label">{{weather['name']}}</h4>
+            <div class="temperature">{{weather['main']['temp']}}°C</div>
+            <div class="weather-condition">{{weather['weather'][0]['main']}}</div>
+            <div class="description">{{weather['description']}}.<img src="https://openweathermap.org/img/wn/{{ weather.weather[0].icon }}@2x.png" alt="Icon"/></div>
+        </div>
+
+        <div class="details-grid">
+            <div class="detail-box">
+                <div class="label">Feels Like</div>
+                <div class="value">{{weather['main']['feels_like']}}°C</div>
+            </div>
+            <div class="detail-box">
+                <div class="label">Pressure</div>
+                <div class="value">{{weather['main']['pressure']}} hPa</div>
+            </div>
+            <div class="detail-box">
+                <div class="label">Visibility</div>
+                <div class="value">{{weather['visibility']/1000}}km</div>
+                <div class="subtext">Current visibility</div>
+            </div>
+            <div class="detail-box">
+                <div class="label">Humidity</div>
+                <div class="value">{{weather['main']['humidity']}}%</div>
+            </div>
+        </div>
+
+
+
+        <div class="extra-info">
+            <div class="uv-index">
+                <div class="label">Temp Min</div>
+                <div class="label">Temp Max</div>
+                <div class="value">{{weather['main']['temp_min']}}°C</div>
+                <div class="value">{{weather['main']['temp_max']}}°C</div>
+            </div>
+            <div class="wind-info">
+                <div class="label">Wind</div>
+                <div class="value">{{weather['wind']['speed']}} m/s</div>
+                <div class="subtext">Gusts: {{weather['wind'].get('gust', 'N/A')}}</div>
+            </div>
+        </div>
+         <div class="forecast-section">
+            <div class="hourly-forecast">
+                <div class="forecast-title">Hourly Forecast</div>
+                <div class="forecast-grid">
+                    {% for forecast in hourly_forecast %}
+            <div class="forecast-card">
+                <div class="time">{{ forecast.time }}</div>
+                <div class="forecast-temp">{{ forecast.temp }}°C</div>
+                <div class="fore-weather-icon"><img src="http://openweathermap.org/img/wn/{{ forecast.icon }}.png" alt="{{ forecast.weather }}"></div>
+                <div class="forewind">Wind: {{ forecast.wind_speed }} m/s</div>
+                <div class="foregust">Gusts: {{ forecast.gust }}</div>
+            </div>
+            {% endfor %}
+                </div>
+            </div>
+
+            <div class="ten-day-forecast">
+                <div class="forecast-title">5-Day Forecast</div>
+                <div class="forecast-grid">
+                    {% for forecast in daily_forecast %}
+            <div class="forecast-card">
+                <div class="day">{{ forecast.date }}</div>
+                <div class="forecast-temp">Max: {{ forecast.temp_max }}°C, Min: {{ forecast.temp_min }}°C</div>
+                <div class="foreweather-icon"><img src="http://openweathermap.org/img/wn/{{ forecast.icon }}.png" alt="{{ forecast.weather }}"/></div>
+            </div>
+            {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
