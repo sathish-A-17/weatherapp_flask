@@ -153,14 +153,14 @@ body {
 .custom-form {
     background-color: rgba(0, 0, 0, 0.4);
     padding: 20px;
-    border-radius: 12px; /* Rounded corners */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .custom-input {
     border: none;
-    background-color: #e0e0e0; /* Light gray background for inputs */
-    border-radius: 8px; /* Rounded input boxes */
+    background-color: #e0e0e0;
+    border-radius: 8px;
     padding: 12px 16px;
     margin-bottom: 15px;
     width: 100%;
@@ -169,13 +169,13 @@ body {
 }
 
 .custom-input:focus {
-    background-color: #ffffff; /* White background on focus */
-    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3); /* Blue glow on focus */
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
     outline: none;
 }
 
 .custom-btn {
-    background-color: #088bff; /* Primary blue color */
+    background-color: #088bff;
     border: none;
     color: #ffffff;
     padding: 12px 16px;
@@ -187,7 +187,7 @@ body {
 }
 
 .custom-btn:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3;
 }
 
 .row {
